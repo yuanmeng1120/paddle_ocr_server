@@ -43,8 +43,11 @@ def get_base64_ocr_result(base64):
 
     nd_image = _cv_img_from_base64(base64)
     if nd_image:
-        for image in nd_image:
-            ocr_result = ocr.ocr(img=image)
+        if isinstance(nd_image,list):
+            for image in nd_image:
+                ocr_result = ocr.ocr(img=image)
+        else:
+            ocr_result = ocr.ocr(img=nd_image)
             for line in ocr_result:
                 result_ocr_dict.append(
                     {"left_top": line[0][0],
